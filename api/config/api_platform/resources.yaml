@@ -1,5 +1,3 @@
 resources:
     App\Entity\Greeting: ~
-    App\Entity\Author: ~
     App\Entity\Book: ~
-    App\Entity\Review: ~
