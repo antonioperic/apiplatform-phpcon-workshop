@@ -1,8 +1,11 @@
 resources:
     App\Entity\Greeting: ~
-    App\Entity\Book: ~
+    App\Entity\Book:
+        attributes:
+            filters: ['book.date_filter']
     App\Entity\Author: 
         attributes:
+            filters: ['author.search_filter', 'author.order_filter']
             order:
                 lastname: "DESC"
         properties:        
