@@ -44,7 +44,8 @@ class ReviewEventSubscriber implements EventSubscriberInterface
         }, $reviews);
 
         $sum = array_sum($rates);
-        $average = $sum / count($reviews);
+
+        $average = count($reviews) ? $sum / count($reviews) : 0;
 
         $book->setAverageReviewRate($average);
         $this->entityManager->persist($book);
