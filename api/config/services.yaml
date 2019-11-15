@@ -25,3 +25,34 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    author.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', firstname: 'ipartial', lastname: 'ipartial', books.title: 'ipartial' } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
+        
+    author.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments: [ { firstname: 'ASC', lastname: 'DESC' } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    book.publication_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { publicationDate: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
+
