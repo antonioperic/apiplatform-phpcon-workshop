@@ -3,6 +3,10 @@ resources:
     App\Entity\Book:
         attributes:
             filters: ['book.date_filter']
+            normalization_context:
+                groups: ['book_read']
+            denormalization_context:
+                groups: ['book_write']
     App\Entity\Author: 
         attributes:
             filters: ['author.search_filter', 'author.order_filter']

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -20,6 +21,8 @@ class Book
     private $id;
 
     /**
+     * @Groups({"book_read", "book_write"})
+     *
      * @ORM\Column(type="string", length=13)
      * @Assert\NotBlank
      * @Assert\Isbn(
@@ -30,39 +33,47 @@ class Book
     private $isbn;
 
     /**
+     * @Groups({"book_read", "book_write"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
     private $title;
 
     /**
+     * @Groups({"book_read", "book_write"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
     private $abstract;
 
     /**
+     * @Groups({"book_read", "book_write"})
      * @ORM\Column(type="date")
      * @Assert\NotBlank
      */
     private $publicationDate;
 
     /**
+     * @Groups("book_read")
      * @ORM\Column(type="float")
      */
     private $averageReviewRate;
 
     /**
+     *
+     * @Groups({"book_read", "book_write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
      */
     private $author;
 
     /**
+     * @Groups({"book_read", "book_write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="book")
      */
     private $reviews;
 
     /**
+     * @Groups({"book_read", "book_write"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
