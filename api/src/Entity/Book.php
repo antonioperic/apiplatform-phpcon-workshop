@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -20,21 +21,29 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=13)
+     * @Assert\NotBlank
+     * @Assert\Isbn(
+     *     type = "isbn13",
+     *     message = "This value is not  valid."
+     * )
      */
     private $isbn;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $abstract;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank
      */
     private $publicationDate;
 
@@ -52,6 +61,12 @@ class Book
      * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="book")
      */
     private $reviews;
+
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     */
+    private $description;
 
     public function __construct()
     {
@@ -163,6 +178,18 @@ class Book
                 $review->setBook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
