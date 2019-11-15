@@ -54,7 +54,7 @@ class Book
     private $publicationDate;
 
     /**
-     * @Groups({"book_extra"})
+     * @Groups({"book_read", "book_extra"})
      * @ORM\Column(type="float")
      */
     private $averageReviewRate;
