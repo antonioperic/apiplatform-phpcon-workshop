@@ -24,21 +24,18 @@ class Book
 
     /**
      * @var int ISBN of the book
-     *
      * @ORM\Column(type="integer")
      */
     private $isbn;
 
     /**
      * @var string Title of the book
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
-     *
      * @ORM\Column(type="text")
      */
     private $abstract;
@@ -51,7 +48,6 @@ class Book
 
     /**
      * @var float
-     *
      * @ORM\Column(type="float")
      */
     private $averageReviewRate;
