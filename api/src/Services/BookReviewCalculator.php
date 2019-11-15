@@ -11,12 +11,13 @@ class BookReviewCalculator
 {
     public function calculate(Book $book): float
     {
-        $sum = 0;
         /** @var Review $review */
-        foreach ($book->getReviews() as $review){
-            $sum += $review->getRate();
-        }
+        $reviews = $book->getReviews()->map(
+            function (Review $review) {
+                return $review->getRate();
+            }
+        )->getValues();
 
-        return round($sum/$book->getReviews()->count(), 2);
+        return round(array_sum($reviews) / $book->getReviews()->count(), 2);
     }
 }
