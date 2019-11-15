@@ -1,6 +1,13 @@
 resources:
     App\Entity\Greeting: ~
     App\Entity\Book:
+        itemOperations:
+            get:
+                method: 'GET'
+                normalization_context:
+                    groups: ['book_read', 'book_extra']
+            put:
+                method: 'PUT'
         attributes:
             filters: ['book.date_filter']
             normalization_context:

@@ -21,7 +21,7 @@ class Book
     private $id;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({"book_read", "book_extra", "book_extra", "book_write"})
      *
      * @ORM\Column(type="string", length=13)
      * @Assert\NotBlank
@@ -33,47 +33,47 @@ class Book
     private $isbn;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({"book_read", "book_extra", "book_write"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
     private $title;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({"", "book_extra", "book_write"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
     private $abstract;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({"book_extra", "book_write"})
      * @ORM\Column(type="date")
      * @Assert\NotBlank
      */
     private $publicationDate;
 
     /**
-     * @Groups("book_read")
+     * @Groups({"book_extra"})
      * @ORM\Column(type="float")
      */
     private $averageReviewRate;
 
     /**
      *
-     * @Groups({"book_read", "book_write"})
+     * @Groups({ "book_extra", "book_write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
      */
     private $author;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({ "book_extra", "book_write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="book")
      */
     private $reviews;
 
     /**
-     * @Groups({"book_read", "book_write"})
+     * @Groups({"book_extra", "book_write"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
