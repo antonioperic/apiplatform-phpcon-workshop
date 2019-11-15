@@ -40,7 +40,7 @@ class Book
     private $title;
 
     /**
-     * @Groups({"", "book_extra", "book_write"})
+     * @Groups({"book_extra", "book_write"})
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      */
