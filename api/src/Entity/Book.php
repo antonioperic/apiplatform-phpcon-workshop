@@ -52,13 +52,11 @@ class Book
     /**
      * @var float
      *
-     * @ORM\Column
      * @ORM\Column(type="float")
      */
     private $averageReviewRate;
 
     /**
-     * @var
      * @ORM\Column(type="integer")
      */
     private $author_id;
