@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,16 +32,14 @@ class Review
     private $rate;
 
     /**
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Book", inversedBy="reviews")
-     * @ORM\Column(type="integer")
-     */
-    private $book_id;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Book", inversedBy="reviewsreviews")
+     */
+    private $book;
 
     public function getId(): ?int
     {
@@ -85,18 +82,6 @@ class Review
         return $this;
     }
 
-    public function getBookId(): ?int
-    {
-        return $this->book_id;
-    }
-
-    public function setBookId(int $book_id): self
-    {
-        $this->book_id = $book_id;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -105,6 +90,18 @@ class Review
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
+    }
+
+    public function setBook(?Book $book): self
+    {
+        $this->book = $book;
 
         return $this;
     }

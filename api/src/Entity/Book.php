@@ -2,178 +2,195 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This is a book entity.
- *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */
 class Book
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     */
-    public $isbn = '';
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     */
-    public $title = '';
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     */
-    public $abstract = '';
-    /**
-     * @var \DateTime A nice person
-     *
-     * @ORM\Column(type="date")
-     * @Assert\NotBlank
-     */
-    public $publicationDate = '';
-    /**
-     * @var string A nice person
-     *
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank
-     */
-    public $avarageReviewRate = '';
-    /**
-     * @var int A nice person
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Author", mappedBy="author")
-
-     * @ORM\Column(type="int")
-     * @Assert\NotBlank
-     */
-    public $author_id = '';
-    /**
-     * @var int The entity Id
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @return string
+     * @ORM\Column(type="string", length=13)
+     * @Assert\NotBlank
+     * @Assert\Isbn(
+     *     type = "isbn13",
+     *     message = "This value is not  valid."
+     * )
      */
-    public function getIsbn(): string
-    {
-        return $this->isbn;
-    }
+    private $isbn;
 
     /**
-     * @param string $isbn
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
-    public function setIsbn(string $isbn): void
-    {
-        $this->isbn = $isbn;
-    }
+    private $title;
 
     /**
-     * @return string
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
+    private $abstract;
 
     /**
-     * @param string $title
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank
      */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
+    private $publicationDate;
 
     /**
-     * @return string
+     * @ORM\Column(type="float")
      */
-    public function getAbstract(): string
-    {
-        return $this->abstract;
-    }
+    private $averageReviewRate;
 
     /**
-     * @param string $abstract
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
      */
-    public function setAbstract(string $abstract): void
-    {
-        $this->abstract = $abstract;
-    }
+    private $author;
 
     /**
-     * @return \DateTime
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="book")
      */
-    public function getPublicationDate(): \DateTime
-    {
-        return $this->publicationDate;
-    }
+    private $reviews;
 
     /**
-     * @param \DateTime $publicationDate
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
-    public function setPublicationDate(\DateTime $publicationDate): void
+    private $description;
+
+    public function __construct()
     {
-        $this->publicationDate = $publicationDate;
+        $this->author = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
-    public function getAvarageReviewRate(): string
-    {
-        return $this->avarageReviewRate;
-    }
-
-    /**
-     * @param string $avarageReviewRate
-     */
-    public function setAvarageReviewRate(string $avarageReviewRate): void
-    {
-        $this->avarageReviewRate = $avarageReviewRate;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAuthorId(): int
-    {
-        return $this->author_id;
-    }
-
-    /**
-     * @param int $author_id
-     */
-    public function setAuthorId(int $author_id): void
-    {
-        $this->author_id = $author_id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
+    public function getIsbn(): ?string
     {
-        $this->id = $id;
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): self
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getAbstract(): ?string
+    {
+        return $this->abstract;
+    }
+
+    public function setAbstract(string $abstract): self
+    {
+        $this->abstract = $abstract;
+
+        return $this;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publicationDate;
+    }
+
+    public function setPublicationDate(\DateTimeInterface $publicationDate): self
+    {
+        $this->publicationDate = $publicationDate;
+
+        return $this;
+    }
+
+    public function getAverageReviewRate(): ?float
+    {
+        return $this->averageReviewRate;
+    }
+
+    public function setAverageReviewRate(float $averageReviewRate): self
+    {
+        $this->averageReviewRate = $averageReviewRate;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getBook() === $this) {
+                $review->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }
