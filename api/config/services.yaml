@@ -10,33 +10,6 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    author.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', firstname: 'ipartial', lastname: 'ipartial' } ]
-        tags:  [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined
-        # You may want to isolate filters in a dedicated file to avoid adding them
-        autowire: false
-        autoconfigure: false
-        public: false
-    book.date_filter:
-        parent: 'api_platform.doctrine.orm.date_filter'
-        arguments: [ { publicationDate: ~} ]
-        tags:  [ 'api_platform.filter' ]
-            # The following are mandatory only if a _defaults section is defined
-            # You may want to isolate filters in a dedicated file to avoid adding them
-        autowire: false
-        autoconfigure: false
-        public: false
-    author.order_filter:
-        parent: 'api_platform.doctrine.orm.order_filter'
-        arguments: [ { firstname: 'ASC', lastname: 'ASC' } ]
-        tags:  [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined
-        # You may want to isolate filters in a dedicated file to avoid adding them
-        autowire: false
-        autoconfigure: false
-        public: false    
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -51,3 +24,33 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    author.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', firstname: 'ipartial', lastname: 'ipartial' } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
+        
+    book.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { publicationDate: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
+        
+    author.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments: [ { id: ~, firstname: ~, lastname: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false
