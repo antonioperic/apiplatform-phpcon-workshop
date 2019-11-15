@@ -26,3 +26,4 @@ resources:
                     maxDepth: 1
                     collection: true
     App\Entity\Review: ~
+    App\Entity\User: ~
