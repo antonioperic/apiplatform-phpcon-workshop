@@ -1,8 +1,21 @@
 resources:
     App\Entity\Greeting: ~
     App\Entity\Book: 
+        iri: "http://schema.org/Book"
+        properties:
+            publicationDate:
+                iri: "http://schema.org/datePublished"
+        collectionOperations:
+            get: ~
+            post: ~
+        itemOperations:
+            get: ~
         attributes:
             filters: ['book.publication_filter']
+            normalization_context:
+                groups: ['book_read']
+            denormalization_context:
+                gorups: ['book_write']
     App\Entity\Author: 
         attributes:
             order:

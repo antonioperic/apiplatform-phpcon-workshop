@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -26,34 +27,40 @@ class Book
      *     type = "isbn13",
      *     message = "This value is not  valid."
      * )
+     * @Groups({"book_read", "book_write"})
      */
     private $isbn;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Groups({"book_read", "book_write"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
+     * @Groups({"book_read", "book_write"})
      */
     private $abstract;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
+     * @Groups({"book_read", "book_write"})
      */
     private $publicationDate;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("book_read")
      */
     private $averageReviewRate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
+     * @Groups({"book_read", "book_write"})
      */
     private $author;
 
@@ -65,6 +72,7 @@ class Book
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
+     * @Groups("book_read")
      */
     private $description;
 

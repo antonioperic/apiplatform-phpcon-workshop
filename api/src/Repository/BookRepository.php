@@ -19,6 +19,14 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function updateAverageReviewRate(Book $book, float $rating)
+    {
+        $manager = $this->getEntityManager();
+        $book->setAverageReviewRate($rating);
+        $manager->persist($book);
+        $manager->flush();
+    }
+
     // /**
     //  * @return Book[] Returns an array of Book objects
     //  */
