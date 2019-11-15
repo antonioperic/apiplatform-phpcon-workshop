@@ -1,14 +1,18 @@
 resources:
     App\Entity\Greeting: ~
-    App\Entity\Book: ~
+    App\Entity\Book: 
+        attributes:
+            filters: ['book.publication_filter']
     App\Entity\Author: 
         attributes:
             order:
                 lastname: "DESC"
+            filters: ['author.search_filter', 'author.order_filter']    
         properties:        
             books:
                 subresource:
                     resourceClass: 'App\Entity\Book'
                     maxDepth: 1
                     collection: true
+        
     App\Entity\Review: ~

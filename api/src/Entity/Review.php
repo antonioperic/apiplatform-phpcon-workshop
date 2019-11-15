@@ -37,7 +37,7 @@ class Review
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Book", inversedBy="reviewsreviews")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Book", inversedBy="reviews")
      */
     private $book;
 
