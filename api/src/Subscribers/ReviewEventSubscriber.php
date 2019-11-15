@@ -32,7 +32,7 @@ class ReviewEventSubscriber implements EventSubscriberInterface
         $review = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$review instanceof Review || !in_array($method, ['POST', 'PUT'])) {
+        if (!$review instanceof Review || !in_array($method, ['POST', 'PUT', 'DELETE'])) {
             return;
         }
 
